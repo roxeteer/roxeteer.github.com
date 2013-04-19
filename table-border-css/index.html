@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <title>One-pixel table border with CSS</title>
+
+<style type="text/css">
+/* <![CDATA[ */
+
+div.finalcode
+{
+    padding: 7px;
+    background-color: #CCC;
+}
+
+p.copyright
+{
+    font-style: italic;
+}
+
+table.nifty, table.nifty td
+{
+    border-color: #600;
+    border-style: solid;
+}
+
+table.nifty
+{
+    border-width: 0 0 1px 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table.nifty td
+{
+    margin: 0;
+    padding: 4px;
+    border-width: 1px 1px 0 0;
+    background-color: #FFC;
+}
+
+/* ]]> */
+</style>
+
+</head>
+<body>
+
+<h1>One-pixel table border with CSS</h1>
+
+<h2>Problem</h2>
+
+<p>
+I want to have a one-pixel one-color solid border around a table and its cells. Adding <code>border="1"</code> to the <code>table</code> tag isn't suitable, because it looks horrific in most of the browsers.
+</p>
+
+<h2>Solution with HTML only</h2>
+
+<p>
+Back in the old days we used to use just HTML to create a one-pixel border. Some people even used 1x1 pixel transparent gifs, but let's not go into that. The easiest way to achieve the border was to use nested tables: outer table that provides the border color and inner table that holds the content.
+</p>
+
+<p>
+Here's an example:
+</p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+    <td bgcolor="#660000">
+
+    <table border="0" cellspacing="1" cellpadding="4">
+    <tr>
+        <td bgcolor="#FFFFCC">Cell 1</td>
+        <td bgcolor="#FFFFCC">Cell 2</td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFCC">Cell 3</td>
+        <td bgcolor="#FFFFCC">Cell 4</td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+
+<p>
+Looks pretty fine, doesn't it? However, let's look into the code:
+</p>
+
+<p>
+<pre>&lt;table border="0" cellspacing="0" cellpadding="0"&gt;
+&lt;tr&gt;
+    &lt;td bgcolor="#660000"&gt;
+
+    &lt;table border="0" cellspacing="1" cellpadding="4"&gt;
+    &lt;tr&gt;
+        &lt;td bgcolor="#FFFFCC"&gt;Cell 1&lt;/td&gt;
+        &lt;td bgcolor="#FFFFCC"&gt;Cell 2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td bgcolor="#FFFFCC"&gt;Cell 3&lt;/td&gt;
+        &lt;td bgcolor="#FFFFCC"&gt;Cell 4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/table&gt;
+
+    &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+</p>
+
+<p>
+The outer table is very simple. Its <code>border</code>, <code>cellspacing</code> and <code>cellpadding</code> are all set to zero. It has only one cell whose background color is the one you want your border to have. The inner table has <code>cellspacing</code> of one pixel and thus the outer table's background color is displayed around the inner table and between its cells.
+</p>
+
+<p>
+The biggest downside of this approach is that we must have two HTML tables to display one table of data. Also, maintaining the code is difficult, as all the table cells must separately contain the background color attribute. Of course, with a little bit of CSS, you can move the background color setting to the style sheet.
+</p>
+
+<h2>The nifty solution with CSS</h2>
+
+<p>
+With the magic of CSS, we can clean up the code a lot. Here's what we get:
+</p>
+
+<table class="nifty">
+<tr>
+    <td>Cell 1</td>
+    <td>Cell 2</td>
+</tr>
+<tr>
+    <td>Cell 3</td>
+    <td>Cell 4</td>
+</tr>
+</table>
+
+<p>
+Unless you're using a browser that doesn't support CSS or a browser that supports it badly, the chances are that the table looks exactly the same as the one before. Again, let's look into the HTML code:
+</p>
+
+<p>
+<pre>&lt;table&gt;
+&lt;tr&gt;
+    &lt;td&gt;Cell 1&lt;/td&gt;
+    &lt;td&gt;Cell 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Cell 3&lt;/td&gt;
+    &lt;td&gt;Cell 4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+</p>
+
+<p>
+This is all we have. Really. Everything else is hidden in a style sheet. You can easily change the looks of your table without touching the HTML (at least that's what they say, but anyway...).
+</p>
+
+<p>
+Maybe the first thing that comes up to your mind when you start creating a style sheet for a table border is to add a one-pixel border to every table cell. However, that would cause the borders to "duplicate" between the cells. The trick is to let cells to have only the top and right borders and add the bottom and left borders to the table. This way it <em>looks</em> like every cell is surrounded with a border, even though technically this is not the case.
+</p>
+
+<p>
+This is how we get there:
+</p>
+
+<p>
+<pre>table
+{
+    border-color: #600;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+}
+
+td
+{
+    border-color: #600;
+    border-width: 1px 1px 0 0;
+    border-style: solid;
+    margin: 0;
+    padding: 4px;
+    background-color: #FFC;
+}</pre>
+</p>
+
+<p>
+The table cell style sheet has <code>margin</code> set to zero, just for sure, and <code>padding</code> set to four pixels, like in our HTML example. The <code>background-color</code> is set to our beautiful light yellow.
+</p>
+
+<p>
+Unfortunately we're not there yet. In Internet Explorer, Opera and Safari there are weird-looking spaces between each cell. This is because we haven't explicitly set the space between each cell to zero. In CSS2, there is an attribute for that called <code>border-spacing</code>, but currently it's only supported by Safari. However, for IE/Win and Opera we can use the <code>border-collapse</code> attribute which "sets the border model of a table". It has two alternative values, <code>separate</code> (which is the default) and <code>collapse</code>. We'll go for <code>collapse</code>.</p>
+
+<p>
+The only culprit after this is IE/Mac which supports neither of these CSS attributes. If you want that your table is displayed correctly in IE/Mac, you must change the <code>table</code> tag in your HTML code so that it has the parameter <code>cellspacing="0"</code>. We have left it out of the final code.
+</p>
+
+<p>
+To make the CSS code easier to maintain, we can first set the border color for both table and td and then set the differing part separately. If you later want to change the border color, you only need to change it in one place.
+</p>
+
+<p>
+Here is our final code:
+</p>
+
+<div class="finalcode">
+
+<pre>&lt;style type="text/css"&gt;
+/* &lt;![CDATA[ */
+
+table, td
+{
+    border-color: #600;
+    border-style: solid;
+}
+
+table
+{
+    border-width: 0 0 1px 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td
+{
+    margin: 0;
+    padding: 4px;
+    border-width: 1px 1px 0 0;
+    background-color: #FFC;
+}
+
+/* ]]&gt; */
+&lt;/style&gt;
+
+&lt;table&gt;
+&lt;tr&gt;
+    &lt;td&gt;Cell 1&lt;/td&gt;
+    &lt;td&gt;Cell 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Cell 3&lt;/td&gt;
+    &lt;td&gt;Cell 4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</pre>
+
+</div>
+
+<p>
+<i>Thanks to Juha "Sumppi" Kaunisto for the <code>border-collapse</code> tip!</i>
+</p>
+
+<hr />
+
+<p class="copyright">
+© 2003 Visa Kopu, <a href="mailto:visa@visakopu.net">visa@visakopu.net</a>
+</p>
+
+</body>
+</html>
