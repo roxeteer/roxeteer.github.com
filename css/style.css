@@ -6,6 +6,7 @@ header {
     padding: 15px 20px;
     color: #fff;
     background: #ce8317;
+    position: relative;
 }
 
 header h1 {
@@ -23,4 +24,10 @@ header h1 a {
 
 .github-widget {
     margin: 10px 20px;
+}
+
+.linkedin {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
 }
