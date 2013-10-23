@@ -1,33 +1,253 @@
-body {
-    color: #333;
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
-header {
-    padding: 15px 20px;
-    color: #fff;
-    background: #ce8317;
-    position: relative;
-}
-
-header h1 {
-    margin: 0;
-    text-shadow: #333 1px 1px 1px;
-    font-size: 28px;
-}
-
-header h1 a {
-    font-size: 21px;
-    margin-left: 7px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.github-widget {
-    margin: 10px 20px;
-}
-
-.linkedin {
+#wrap
+{
+    overflow: auto;
     position: absolute;
-    bottom: 15px;
-    right: 20px;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    color: #222;
+    font-family: 'Source Sans Pro', Helvetica, Arial sans-serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #880000;
+    transition: color .5s, text-shadow 1s, background 1s;
+}
+
+a:hover {
+    transition: color .5s, text-shadow 2s, background 2s;
+    color: #f33;
+    text-shadow: 0 0 .2em #f33;
+}
+
+header, main {
+    display: table;
+    width: 100%;
+}
+
+section {
+    display: table-row;
+}
+
+article {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+header article {
+    background: #554a4b;
+    color: #fff;
+}
+
+.next {
+    margin-top: 2em;
+    margin-bottom: -2em;
+    font-size: 2em;
+}
+
+.next a {
+    color: #fff;
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 0.55em;
+    background: rgba(85, 74, 75, .1);
+    line-height: 1.25;
+}
+
+.next a:hover {
+    color: #fff;
+    text-shadow: 0 0 .2em #fff;
+    background: rgba(85, 74, 75, .5);
+}
+
+header .next a { background: rgba(255, 255, 255, .1); }
+header .next a:hover { background: rgba(255, 255, 255, .3); }
+
+header .memberships {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 0.7em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header ul.memberships li {
+    float: left;
+    padding: 0;
+}
+
+header .memberships li + li {
+    border-left: 1px solid #fff;
+    margin-left: .5em;
+    padding-left: .5em;
+}
+
+header .memberships a { color: #fff; }
+header .memberships a:hover { color: #f33; }
+
+#contact .next a {
+    line-height: 1;
+}
+
+article {
+    background: #fff no-repeat 50% 50%;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+#skills article {
+    background-image: url(../img/bg.jpg);
+}
+
+#skills span {
+    display: inline-block;
+    background: rgba(240, 240, 240, .5);
+    clear: both;
+    padding: .05em;
+    margin: .1em;
+}
+
+h1 {
+    font-weight: 200;
+    font-size: 5.4em;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -.06em;
+    word-spacing: .09em;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    white-space: nowrap;
+    background: #554a4b;
+    color: #fff;
+    transition: text-shadow 2s;
+}
+
+h1:hover {
+    text-shadow: 0 0 .1em #fff;
+    transition: text-shadow 2s;
+}
+
+h3 {
+    margin: 0;
+    font-family: 'Allura', cursive;
+    font-weight: 400;
+    font-size: 1.6em;
+    line-height: 1;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li + li {
+    padding-top: .3em;
+}
+
+#contact ul {
+    padding: .3em 0;
+}
+
+#contact li {
+    display: inline-block;
+    margin: 0 .5em;
+}
+
+.not-so-important {
+    font-size: .8em;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-size: 1.4em;
+    }
+
+    article {
+        background-attachment: scroll !important;
+    }
+
+    #skills {
+        background-image: url(../img/bg2.jpg);
+        background-position: 50% 70%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    h1 {
+        font-size: 5em;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    h1 {
+        font-size: 3.6em;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    h1 {
+        font-size: 2.8em;
+    }
+
+    h3 {
+        margin-top: 0.5em;
+    }
+
+    header .memberships {
+        display: none;
+    }
+
+    #skills article {
+        background-image: url(../img/bg2.jpg);
+        background-position: 50% 100%;
+    }
+
+    #skills ul {
+        margin-top: 7em;
+        font-size: .95em;
+    }
+
+    #skills .next {
+        margin-top: .5em;
+        margin-bottom: 0;
+    }
+
+    #contact article {
+        padding-top: 1em;
+    }
+
+    #contact .next {
+        margin-top: 0;
+    }
+}
+
+
+/* mobile wide screen */
+
+@media only screen and (max-height: 400px) {
+    .next {
+        display: none;
+    }
+
+    #skills article {
+        background-image: url(../img/bg.jpg);
+        background-position: 50% 0;
+    }
 }
